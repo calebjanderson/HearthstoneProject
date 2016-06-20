@@ -1,0 +1,33 @@
+.card {
+  float:left;
+  background:#eee;
+  height:275px;
+  width:200px;
+}
+
+.card img {
+	width: 100%;
+	height: 100%;
+}
+
+.logo {
+	height: 300px;
+	width: 700px;
+}
+
+.searchBar {
+	display: inline-block;
+	text-align: center;
+}
+
+.displayCase {
+	background:#eee;
+}
+
+.goldenButton {
+	margin: 10px;
+}
+
+.classSelector {
+	margin: 10px;
+}
