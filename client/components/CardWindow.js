@@ -9,18 +9,9 @@ export default class CardWindow extends React.Component{
     this.state = {
       currentCard: null,
       goldenCards: false,
+      filteredCards: null,
     };
   }
-
-  
-  getCurrentCard() {
-    
-  }
-
-
-
-
-
 
 
   render(){
@@ -31,10 +22,17 @@ export default class CardWindow extends React.Component{
           <form onSubmit={(e)=> {
             console.log("looks for card", this.state.currentCard)
             e.preventDefault()
+            
             cards.fetchCardByName(this.state.currentCard)
             .then((cards) => {
-              console.log(cards)
+              var selected = document.getElementById('manaCost')
+              
+              
               this.setState({currentCard: cards})
+              this.setState({filteredCards: null})
+              console.log('form', selected)
+              selected.reset()
+              document.getElementsByClassName('cardSearchBar')[0].value = ''
             })
             .catch((cards) => {
               this.setState({currentCard: null})
@@ -42,7 +40,7 @@ export default class CardWindow extends React.Component{
             }
           } >
             <label>Enter card name</label>
-            <input onChange={(e)=>this.setState({currentCard: e.target.value})} />
+            <input className="cardSearchBar" onChange={(e)=>this.setState({currentCard: e.target.value})} />
             <button type="submit">Search</button>
 
           </form>
@@ -62,21 +60,21 @@ export default class CardWindow extends React.Component{
             <option values="Neutral"> Neutral </option>
           </select>
           <p>Filter by mana cost</p>
-          <form onChange={(e) => {
-
+          <form id="manaCost" onChange={(e) => {
             let cost = e.target.value
-            let unfilteredCards = this.state.currentCard
-            this.setState({currentCard: unfilteredCards})
-            let filteredCards = this.state.currentCard.filter((card) => {
-              console.log('card', card)
-              console.log(cost)
-              return card.cost == cost
-            })
+            if(this.state.currentCard) {
 
-            console.log('currentCard', this.state.currentCard)
-            console.log('filteredCards', filteredCards)
-            this.setState({currentCard: filteredCards})
+              let unfilteredCards = this.state.currentCard
+              
+              let filteredCards = this.state.currentCard.filter((card) => {
+                return card.cost == cost
+              })
+              this.setState({filteredCards: filteredCards})
+            }
+           
+            console.log('target', e.target)
           }}>
+            
             1<input type="radio" name="gender" value="1"/>
             2<input type="radio" name="gender" value="2"/>
             3<input type="radio" name="gender" value="3"/>
@@ -89,14 +87,22 @@ export default class CardWindow extends React.Component{
           </form>
         </div>
         <div className="displayCase">
-          {this.state.currentCard ? this.state.currentCard.map((card) => {
+        {this.state.filteredCards ? this.state.filteredCards.map((card) => {
+          return <div className="card" key={card.cardId}>
+                   {this.state.goldenCards ? 
+                    <img src={card.imgGold}/>
+                    : <img src={card.img}/> }
+                 </div>
+        }) 
+         : Array.isArray(this.state.currentCard) ? this.state.currentCard.map((card) => {
                 console.log('card')
                 return <div className="card" key={card.cardId}>
                          {this.state.goldenCards ? 
                           <img src={card.imgGold}/>
                           : <img src={card.img}/> }
-                      </div>
-                     }) : 'No cards to display'}
+                       </div>
+                     }) : 'No cards to display'
+        }
         </div>
       </div>
       )
