@@ -1,6 +1,7 @@
 import React from 'react';
 import * as cards from '../models/cards'
 
+
 export default class CardWindow extends React.Component{
 
   constructor(props){
@@ -13,7 +14,6 @@ export default class CardWindow extends React.Component{
     };
   }
 
-
   render(){
     return (
       <div className="main">
@@ -21,28 +21,22 @@ export default class CardWindow extends React.Component{
           <img src="http://i.imgur.com/boRiaOv.png" className="logo" />
           <form onSubmit={(e)=> {
             console.log("looks for card", this.state.currentCard)
-            e.preventDefault()
-            
+            e.preventDefault()           
             cards.fetchCardByName(this.state.currentCard)
             .then((cards) => {
               var selected = document.getElementById('manaCost')
-              
-              
               this.setState({currentCard: cards})
               this.setState({filteredCards: null})
-              console.log('form', selected)
               selected.reset()
               document.getElementsByClassName('cardSearchBar')[0].value = ''
             })
             .catch((cards) => {
               this.setState({currentCard: null})
             })
-            }
-          } >
+          } } >
             <label>Enter card name</label>
             <input className="cardSearchBar" onChange={(e)=>this.setState({currentCard: e.target.value})} />
             <button type="submit">Search</button>
-
           </form>
           <button className="goldenButton" onClick={() => this.setState({goldenCards: !this.state.goldenCards})}> {this.state.goldenCards ? "Show normal cards" : "Show golden cards"} </button>
           <select className="classSelector" onChange={(e) => {
@@ -57,33 +51,31 @@ export default class CardWindow extends React.Component{
             <option value="Warlock"> Warlock </option>
             <option value="Priest"> Priest </option>
             <option value="Rogue"> Rogue </option>
-            <option values="Neutral"> Neutral </option>
+            <option value="Druid"> Druid </option>
+            <option value="Neutral" defaultValue> Neutral </option>
           </select>
           <p>Filter by mana cost</p>
           <form id="manaCost" onChange={(e) => {
             let cost = e.target.value
             if(this.state.currentCard) {
-
               let unfilteredCards = this.state.currentCard
-              
               let filteredCards = this.state.currentCard.filter((card) => {
                 return card.cost == cost
               })
               this.setState({filteredCards: filteredCards})
             }
-           
-            console.log('target', e.target)
           }}>
-            
-            1<input type="radio" name="gender" value="1"/>
-            2<input type="radio" name="gender" value="2"/>
-            3<input type="radio" name="gender" value="3"/>
-            4<input type="radio" name="gender" value="4"/>
-            5<input type="radio" name="gender" value="5"/>
-            6<input type="radio" name="gender" value="6"/>
-            7<input type="radio" name="gender" value="7"/>
-            8<input type="radio" name="gender" value="8"/>
-            9<input type="radio" name="gender" value="9"/>
+            None <input type="radio" name="mana" value="none" />
+            1 <input type="radio" name="mana" value="1"/>
+            2 <input type="radio" name="mana" value="2"/>
+            3 <input type="radio" name="mana" value="3"/>
+            4 <input type="radio" name="mana" value="4"/>
+            5 <input type="radio" name="mana" value="5"/>
+            6 <input type="radio" name="mana" value="6"/>
+            7 <input type="radio" name="mana" value="7"/>
+            8 <input type="radio" name="mana" value="8"/>
+            9 <input type="radio" name="mana" value="9"/>
+            10<input type="radio" name="mana" value="10"/>
           </form>
         </div>
         <div className="displayCase">
