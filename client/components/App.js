@@ -1,25 +1,22 @@
-import React from 'react';
+import React from "react";
+import CardWindow from "./CardWindow";
+import CardList from "./CardList";
 
-
-import CardWindow from './CardWindow'
-
-
-
-
-export default class App extends React.Component{
-
-  constructor(props){
+export default class App extends React.Component {
+  constructor(props) {
     super(props);
 
-    this.state = {
-      
-    };
+    this.state = {};
+  }
+  componentDidMount() {
 
   }
-
   render() {
-    return <div>
-             <CardWindow />
-           </div>
+    return (
+      <div>
+        <CardList cards={this.props.cards} />
+        <CardWindow />
+      </div>
+    );
   }
 }

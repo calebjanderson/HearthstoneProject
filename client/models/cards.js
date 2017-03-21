@@ -17,7 +17,10 @@ export function fetchCardByName(cardName) {
 }
 
 
-
+export function fetchAllCards() {
+  return fetch('http://localhost:4000/cards')
+    .then(data => data.json())
+}
 
 export function fetchCardByClass(className) {
 	let obj = {
