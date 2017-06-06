@@ -10,7 +10,6 @@ import App from "./components/App";
 import { fetchAllCards } from "./models/cards.js";
 
 fetchAllCards().then(data => {
-  data = data.filter((card) => card.img)
   ReactDOM.render(<App cards={data} />, document.getElementById("app"));
 });
 // Render that component to the DOM!

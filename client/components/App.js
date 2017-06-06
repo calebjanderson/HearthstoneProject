@@ -14,8 +14,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <CardList cards={this.props.cards} />
         <CardWindow />
+        <CardList cards={this.props.cards.slice(10, 200)} />
       </div>
     );
   }

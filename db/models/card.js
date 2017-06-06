@@ -8,7 +8,8 @@ const cardSchema = mongoose.Schema({
   },
   name: {
     type: String,
-    required: true
+    required: true,
+    default: 'No name'
   },
   cardSet: String,
   type: String,
@@ -22,7 +23,8 @@ const cardSchema = mongoose.Schema({
   playerClass: String,
   img: { 
     type: String,
-    required: true
+    required: true,
+    default: 'http://www.gemologyproject.com/wiki/images/5/5f/Placeholder.jpg'
   },
   imgGold: String,
   locale: String,

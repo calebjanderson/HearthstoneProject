@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server/main.js --ignore client/",
-    "test": "grunt test"
+    "test": "grunt test",
+    "worker": "node ./server/worker.js"
   },
   "author": "Caleb Anderson <caleb.anderson130@gmail.com>",
   "license": "ISC",
