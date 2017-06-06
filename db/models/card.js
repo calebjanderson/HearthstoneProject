@@ -20,7 +20,10 @@ const cardSchema = mongoose.Schema({
   text: String,
   race: String,
   playerClass: String,
-  img: String,
+  img: { 
+    type: String,
+    required: true
+  },
   imgGold: String,
   locale: String,
   mechanics: [{ name: String }]
